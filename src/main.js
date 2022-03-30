@@ -2,6 +2,7 @@
 var posterImg = document.querySelector('.poster-img');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
+var showRandomBtn = document.querySelector('.show-random');
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -104,7 +105,8 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
-
+window.addEventListener('load', injectRandomPoster);
+showRandomBtn.addEventListener('click', injectRandomPoster);
 // getRandomPoster listener
 
 // functions and event handlers go here 👇
@@ -123,16 +125,14 @@ function createRandomPoster() {
   var randImageURL = images[getRandomIndex(images)];
   var randTitle = titles[getRandomIndex(titles)];
   var randQuote = quotes[getRandomIndex(quotes)]
-  return new Poster(randImageURL, randTitle, randQuote);
+  currentPoster = new Poster(randImageURL, randTitle, randQuote);
 };
 
 function injectRandomPoster() {
-  currentPoster = createRandomPoster();
+  createRandomPoster();
   injectPosterValues(currentPoster);
 };
 
-window.addEventListener('load', injectRandomPoster());
-//});
 
 /*
 passing imageURL, title, and quote into a new Poster
