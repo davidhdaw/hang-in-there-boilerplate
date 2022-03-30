@@ -1,4 +1,3 @@
-var Poster = require('./poster');
 // query selector variables go here 👇
 
 // we've provided you with some data to work with 👇
@@ -119,7 +118,7 @@ var randQuote = quotes[getRandomIndex(quotes)]
 return new Poster(randImageURL, randTitle, randQuote);
 }
 
-var initialPoster = createRandomPoster();
+currentPoster = createRandomPoster();
 console.log(initialPoster);
 
 /*
