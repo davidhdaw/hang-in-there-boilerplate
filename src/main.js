@@ -120,17 +120,18 @@ function injectPosterValues(poster) {
 }
 
 function createRandomPoster() {
-var randImageURL = images[getRandomIndex(images)];
-var randTitle = titles[getRandomIndex(titles)];
-var randQuote = quotes[getRandomIndex(quotes)]
-return new Poster(randImageURL, randTitle, randQuote);
+  var randImageURL = images[getRandomIndex(images)];
+  var randTitle = titles[getRandomIndex(titles)];
+  var randQuote = quotes[getRandomIndex(quotes)]
+  return new Poster(randImageURL, randTitle, randQuote);
 };
 
+function injectRandomPoster() {
+  currentPoster = createRandomPoster();
+  injectPosterValues(currentPoster);
+};
 
-currentPoster = createRandomPoster();
-injectPosterValues(currentPoster);
-
-//window.addEventListener('load', currentPoster = createRandomPoster();
+window.addEventListener('load', injectRandomPoster());
 //});
 
 /*
