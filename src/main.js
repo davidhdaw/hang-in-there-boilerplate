@@ -103,9 +103,29 @@ var currentPoster;
 
 // event listeners go here 👇
 
+// getRandomPoster listener
+
 // functions and event handlers go here 👇
 // (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
+function createRandomPoster() {
+var randImageURL = images[getRandomIndex(images)];
+var randTitle = titles[getRandomIndex(titles)];
+var randQuote = quotes[getRandomIndex(quotes)]
+return new Poster(randImageURL, randTitle, randQuote);
+}
+
+currentPoster = createRandomPoster();
+console.log(initialPoster);
+
+/*
+passing imageURL, title, and quote into a new Poster
+have those be randomly pulled from the arrays
+inject Poster.value into the DOM at the correct places
+
+on button click generate a new Poster object and inject those values into the page.
+
+*/
