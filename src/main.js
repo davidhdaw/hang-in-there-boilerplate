@@ -123,7 +123,7 @@ window.addEventListener('load', injectRandomPoster);
 showRandomBtn.addEventListener('click', injectRandomPoster);
 
 // savePosterBtn.addEventListener('click', );
-// showSavedBtn.addEventListener('click', );
+showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
 // showMyPosterBtn.addEventListener('click', );
 // neverMindBtn.addEventListener('click', );
@@ -167,12 +167,14 @@ function showPosterForm() {
   hide(savedPoster)
 };
 
+function showSavedPosters() {
+  hide(posterForm)
+  hide(mainPoster)
+  show(savedPoster)
+};
 
 
 
-
-
-// When a user clicks the “View Saved Posters” button, we should see the saved posters area, and the main poster should be hidden
 // When a user clicks the “Nevermind, take me back!”  we should only see the main poster section
 // When a user clicks the “Back to Main” button, we should only see the main poster section
 
