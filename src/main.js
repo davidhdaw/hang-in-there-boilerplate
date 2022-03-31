@@ -121,6 +121,9 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster;
+var imgValue;
+var titleValue;
+var quoteValue;
 
 // event listeners go here 👇
 window.addEventListener('load', injectRandomPoster);
@@ -129,7 +132,7 @@ showRandomBtn.addEventListener('click', injectRandomPoster);
 // savePosterBtn.addEventListener('click', );
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-// showMyPosterBtn.addEventListener('click', );
+showMyPosterBtn.addEventListener('click', createPosterFromForm);
 neverMindBtn.addEventListener('click', goToMain);
 backToMainBtn.addEventListener('click', goToMain);
 
@@ -182,6 +185,15 @@ function goToMain() {
   show(mainPoster)
   hide(savedPoster)
 };
+
+function createPosterFromForm () {
+  var imgValue = imageForm.value;
+  var titleValue = titleForm.value;
+  var quoteValue = quoteForm.value;
+  currentPoster = new Poster(imgValue, titleValue, quoteValue);
+  event.preventDefault();
+}
+
 
 /*
 passing imageURL, title, and quote into a new Poster
