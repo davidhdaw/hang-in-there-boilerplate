@@ -122,7 +122,7 @@ var currentPoster;
 window.addEventListener('load', injectRandomPoster);
 showRandomBtn.addEventListener('click', injectRandomPoster);
 
-// savePosterBtn.addEventListener('click', );
+savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
 // showMyPosterBtn.addEventListener('click', );
@@ -171,6 +171,7 @@ function showSavedPosters() {
   hide(posterForm)
   hide(mainPoster)
   show(savedPoster)
+  showSavedPostersPage()
 };
 
 function goToMain() {
@@ -179,11 +180,24 @@ function goToMain() {
   hide(savedPoster)
 };
 
-/*
-passing imageURL, title, and quote into a new Poster
-have those be randomly pulled from the arrays
-inject Poster.value into the DOM at the correct places
+// event.preventDefault()
 
-on button click generate a new Poster object and inject those values into the page.
+function saveThisPoster() {
+  //click “Save This Poster” button
+  //current main poster is added to savedPosters array
+  //no duplicates
 
-*/
+  //var savedPosters = []
+  //currentPoster = new Poster(randImageURL, randTitle, randQuote);
+
+  if (!savedPosters.includes(currentPoster)) {
+    savedPosters.push(currentPoster)
+  }
+  console.log(savedPosters);
+};
+
+function showSavedPostersPage() {
+  // clicks the “Show Saved Posters” button
+  //show saved posters section
+  // All posters in savedPosters array is shown in the saved posters grid section
+};
