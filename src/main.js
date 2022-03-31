@@ -2,7 +2,21 @@
 var posterImg = document.querySelector('.poster-img');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
+
 var showRandomBtn = document.querySelector('.show-random');
+var savePosterBtn = document.querySelector('.save-poster');
+var showSavedBtn = document.querySelector('.show-saved');
+var makeMyPosterBtn = document.querySelector('.show-form');
+var showMyPosterBtn = document.querySelector('.make-poster');
+var neverMindBtn = document.querySelector('.show-main');
+var backToMainBtn = document.querySelector('.back-to-main');
+
+var posterForm = document.querySelector('.poster-form');
+var savedPoster = document.querySelector('.saved-posters');
+var mainPoster = document.querySelector('.main-poster');
+
+
+
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -107,10 +121,16 @@ var currentPoster;
 // event listeners go here 👇
 window.addEventListener('load', injectRandomPoster);
 showRandomBtn.addEventListener('click', injectRandomPoster);
-// getRandomPoster listener
+
+// savePosterBtn.addEventListener('click', );
+// showSavedBtn.addEventListener('click', );
+makeMyPosterBtn.addEventListener('click', showPosterForm);
+// showMyPosterBtn.addEventListener('click', );
+// neverMindBtn.addEventListener('click', );
+// backToMainBtn.addEventListener('click', );
+
 
 // functions and event handlers go here 👇
-// (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -132,6 +152,29 @@ function injectRandomPoster() {
   createRandomPoster();
   injectPosterValues(currentPoster);
 };
+
+function show(element) {
+  element.classList.remove('hidden')
+};
+
+function hide(element) {
+  element.classList.add('hidden')
+};
+
+function showPosterForm() {
+  show(posterForm)
+  hide(mainPoster)
+  hide(savedPoster)
+};
+
+
+
+
+
+
+// When a user clicks the “View Saved Posters” button, we should see the saved posters area, and the main poster should be hidden
+// When a user clicks the “Nevermind, take me back!”  we should only see the main poster section
+// When a user clicks the “Back to Main” button, we should only see the main poster section
 
 
 /*
