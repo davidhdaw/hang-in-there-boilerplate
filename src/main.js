@@ -132,7 +132,7 @@ showRandomBtn.addEventListener('click', injectRandomPoster);
 // savePosterBtn.addEventListener('click', );
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-showMyPosterBtn.addEventListener('click', createPosterFromForm);
+showMyPosterBtn.addEventListener('click', formReturn);
 neverMindBtn.addEventListener('click', goToMain);
 backToMainBtn.addEventListener('click', goToMain);
 
@@ -192,6 +192,16 @@ function createPosterFromForm () {
   var quoteValue = quoteForm.value;
   currentPoster = new Poster(imgValue, titleValue, quoteValue);
   event.preventDefault();
+};
+
+function formReturn() {
+  createPosterFromForm();
+  images.push(currentPoster.imageURL);
+  titles.push(currentPoster.title);
+  quotes.push(currentPoster.quote);
+  injectPosterValues(currentPoster);
+  goToMain();
+
 }
 
 
