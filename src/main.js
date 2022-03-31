@@ -116,7 +116,7 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster;
+var currentPoster = null;
 
 // event listeners go here 👇
 window.addEventListener('load', injectRandomPoster);
@@ -131,8 +131,12 @@ backToMainBtn.addEventListener('click', goToMain);
 
 
 // functions and event handlers go here 👇
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+// function getRandomIndex(array) {
+//   return Math.floor(Math.random() * array.length);
+// }
+
+function getRandomElement(array) {
+  return array[Math.floor(Math.random()*array.length)]
 }
 
 function injectPosterValues(poster) {
@@ -142,9 +146,9 @@ function injectPosterValues(poster) {
 }
 
 function createRandomPoster() {
-  var randImageURL = images[getRandomIndex(images)];
-  var randTitle = titles[getRandomIndex(titles)];
-  var randQuote = quotes[getRandomIndex(quotes)]
+  var randImageURL = getRandomElement(images);
+  var randTitle = getRandomElement(titles);
+  var randQuote = getRandomElement(quotes);
   currentPoster = new Poster(randImageURL, randTitle, randQuote);
 };
 
@@ -171,7 +175,7 @@ function showSavedPosters() {
   hide(posterForm)
   hide(mainPoster)
   show(savedPoster)
-  showSavedPostersPage()
+  viewSavedPostersPage()
 };
 
 function goToMain() {
@@ -196,8 +200,9 @@ function saveThisPoster() {
   console.log(savedPosters);
 };
 
-function showSavedPostersPage() {
+function viewSavedPostersPage() {
   // clicks the “Show Saved Posters” button
   //show saved posters section
+
   // All posters in savedPosters array is shown in the saved posters grid section
 };
