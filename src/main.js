@@ -15,6 +15,10 @@ var posterForm = document.querySelector('.poster-form');
 var savedPoster = document.querySelector('.saved-posters');
 var mainPoster = document.querySelector('.main-poster');
 
+var imageForm = document.querySelector('#poster-image-url')
+var titleForm = document.querySelector('#poster-title')
+var quoteForm = document.querySelector('#poster-quote')
+
 
 
 // we've provided you with some data to work with 👇
