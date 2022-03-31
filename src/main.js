@@ -126,8 +126,8 @@ showRandomBtn.addEventListener('click', injectRandomPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
 // showMyPosterBtn.addEventListener('click', );
-// neverMindBtn.addEventListener('click', );
-// backToMainBtn.addEventListener('click', );
+neverMindBtn.addEventListener('click', goToMain);
+backToMainBtn.addEventListener('click', goToMain);
 
 
 // functions and event handlers go here 👇
@@ -173,11 +173,11 @@ function showSavedPosters() {
   show(savedPoster)
 };
 
-
-
-// When a user clicks the “Nevermind, take me back!”  we should only see the main poster section
-// When a user clicks the “Back to Main” button, we should only see the main poster section
-
+function goToMain() {
+  hide(posterForm)
+  show(mainPoster)
+  hide(savedPoster)
+};
 
 /*
 passing imageURL, title, and quote into a new Poster
