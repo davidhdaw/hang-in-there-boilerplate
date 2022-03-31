@@ -121,9 +121,6 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster;
-var imgValue;
-var titleValue;
-var quoteValue;
 
 // event listeners go here 👇
 window.addEventListener('load', injectRandomPoster);
@@ -191,18 +188,17 @@ function createPosterFromForm () {
   var titleValue = titleForm.value;
   var quoteValue = quoteForm.value;
   currentPoster = new Poster(imgValue, titleValue, quoteValue);
-  event.preventDefault();
 };
 
 function formReturn() {
+  event.preventDefault();
   createPosterFromForm();
   images.push(currentPoster.imageURL);
   titles.push(currentPoster.title);
   quotes.push(currentPoster.quote);
   injectPosterValues(currentPoster);
   goToMain();
-
-}
+};
 
 
 /*
