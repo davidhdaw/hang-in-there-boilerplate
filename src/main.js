@@ -15,10 +15,11 @@ var posterForm = document.querySelector('.poster-form');
 var savedPoster = document.querySelector('.saved-posters');
 var mainPoster = document.querySelector('.main-poster');
 
+var savedPosterGrid = document.querySelector('.saved-posters-grid');
+
 var imageForm = document.querySelector('#poster-image-url')
 var titleForm = document.querySelector('#poster-title')
 var quoteForm = document.querySelector('#poster-quote')
-
 
 
 // we've provided you with some data to work with 👇
@@ -120,13 +121,13 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster;
+var currentPoster = null;
 
 // event listeners go here 👇
 window.addEventListener('load', injectRandomPoster);
 showRandomBtn.addEventListener('click', injectRandomPoster);
 
-// savePosterBtn.addEventListener('click', );
+savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
 showMyPosterBtn.addEventListener('click', formReturn);
@@ -135,8 +136,12 @@ backToMainBtn.addEventListener('click', goToMain);
 
 
 // functions and event handlers go here 👇
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+// function getRandomIndex(array) {
+//   return Math.floor(Math.random() * array.length);
+// }
+
+function getRandomElement(array) {
+  return array[Math.floor(Math.random()*array.length)]
 }
 
 function injectPosterValues(poster) {
@@ -146,9 +151,9 @@ function injectPosterValues(poster) {
 }
 
 function createRandomPoster() {
-  var randImageURL = images[getRandomIndex(images)];
-  var randTitle = titles[getRandomIndex(titles)];
-  var randQuote = quotes[getRandomIndex(quotes)]
+  var randImageURL = getRandomElement(images);
+  var randTitle = getRandomElement(titles);
+  var randQuote = getRandomElement(quotes);
   currentPoster = new Poster(randImageURL, randTitle, randQuote);
 };
 
@@ -175,6 +180,7 @@ function showSavedPosters() {
   hide(posterForm)
   hide(mainPoster)
   show(savedPoster)
+  viewSavedPostersPage()
 };
 
 function goToMain() {
@@ -201,11 +207,31 @@ function formReturn() {
 };
 
 
-/*
-passing imageURL, title, and quote into a new Poster
-have those be randomly pulled from the arrays
-inject Poster.value into the DOM at the correct places
+function saveThisPoster() {
+  //click “Save This Poster” button
+  //current main poster is added to savedPosters array
+  //no duplicates
 
-on button click generate a new Poster object and inject those values into the page.
+  //var savedPosters = []
+  //currentPoster = new Poster(randImageURL, randTitle, randQuote);
 
-*/
+  if (!savedPosters.includes(currentPoster)) {
+    savedPosters.push(currentPoster)
+  }
+  console.log(savedPosters);
+};
+
+function viewSavedPostersPage() {
+  savedPosterGrid.innerHTML = "";
+  // click “Show Saved Posters” button
+  // show saved posters section
+  // All posters in savedPosters array is shown in the saved posters grid section
+  for (var i = 0; i < savedPosters.length; i++) {
+    savedPosterGrid.innerHTML +=
+    `<article class="mini-poster">
+        <img class="poster-img" src=${savedPosters[i].imageURL} alt="nothin' to see here">
+        <h2 class="poster-title">${savedPosters[i].title}</h2>
+        <h4 class="poster-quote">${savedPosters[i].quote}</h4>
+      </article>`
+  }
+};
