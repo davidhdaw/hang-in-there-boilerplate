@@ -15,7 +15,7 @@ var posterForm = document.querySelector('.poster-form');
 var savedPoster = document.querySelector('.saved-posters');
 var mainPoster = document.querySelector('.main-poster');
 
-
+var savedPosterGrid = document.querySelector('.saved-posters-grid');
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -201,8 +201,15 @@ function saveThisPoster() {
 };
 
 function viewSavedPostersPage() {
-  // clicks the “Show Saved Posters” button
-  //show saved posters section
-
+  // click “Show Saved Posters” button
+  // show saved posters section
   // All posters in savedPosters array is shown in the saved posters grid section
+  for (var i = 0; i < savedPosters.length; i++) {
+    savedPosterGrid.innerHTML +=
+    `<article class="mini-poster">
+        <img class="poster-img" src=${savedPosters[i].imageURL} alt="nothin' to see here">
+        <h2 class="poster-title">${savedPosters[i].title}</h2>
+        <h4 class="poster-quote">${savedPosters[i].quote}</h4>
+      </article>`
+  }
 };
