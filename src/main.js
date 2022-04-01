@@ -15,6 +15,10 @@ var posterForm = document.querySelector('.poster-form');
 var savedPoster = document.querySelector('.saved-posters');
 var mainPoster = document.querySelector('.main-poster');
 
+var imageForm = document.querySelector('#poster-image-url')
+var titleForm = document.querySelector('#poster-title')
+var quoteForm = document.querySelector('#poster-quote')
+
 
 
 // we've provided you with some data to work with 👇
@@ -125,7 +129,7 @@ showRandomBtn.addEventListener('click', injectRandomPoster);
 // savePosterBtn.addEventListener('click', );
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-// showMyPosterBtn.addEventListener('click', );
+showMyPosterBtn.addEventListener('click', formReturn);
 neverMindBtn.addEventListener('click', goToMain);
 backToMainBtn.addEventListener('click', goToMain);
 
@@ -178,6 +182,24 @@ function goToMain() {
   show(mainPoster)
   hide(savedPoster)
 };
+
+function createPosterFromForm () {
+  var imgValue = imageForm.value;
+  var titleValue = titleForm.value;
+  var quoteValue = quoteForm.value;
+  currentPoster = new Poster(imgValue, titleValue, quoteValue);
+};
+
+function formReturn() {
+  event.preventDefault();
+  createPosterFromForm();
+  images.push(currentPoster.imageURL);
+  titles.push(currentPoster.title);
+  quotes.push(currentPoster.quote);
+  injectPosterValues(currentPoster);
+  goToMain();
+};
+
 
 /*
 passing imageURL, title, and quote into a new Poster
