@@ -17,6 +17,11 @@ var mainPoster = document.querySelector('.main-poster');
 
 var savedPosterGrid = document.querySelector('.saved-posters-grid');
 
+var imageForm = document.querySelector('#poster-image-url')
+var titleForm = document.querySelector('#poster-title')
+var quoteForm = document.querySelector('#poster-quote')
+
+
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -125,7 +130,7 @@ showRandomBtn.addEventListener('click', injectRandomPoster);
 savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-// showMyPosterBtn.addEventListener('click', );
+showMyPosterBtn.addEventListener('click', formReturn);
 neverMindBtn.addEventListener('click', goToMain);
 backToMainBtn.addEventListener('click', goToMain);
 
@@ -184,7 +189,23 @@ function goToMain() {
   hide(savedPoster)
 };
 
-// event.preventDefault()
+function createPosterFromForm () {
+  var imgValue = imageForm.value;
+  var titleValue = titleForm.value;
+  var quoteValue = quoteForm.value;
+  currentPoster = new Poster(imgValue, titleValue, quoteValue);
+};
+
+function formReturn() {
+  event.preventDefault();
+  createPosterFromForm();
+  images.push(currentPoster.imageURL);
+  titles.push(currentPoster.title);
+  quotes.push(currentPoster.quote);
+  injectPosterValues(currentPoster);
+  goToMain();
+};
+
 
 function saveThisPoster() {
   //click “Save This Poster” button
@@ -201,6 +222,7 @@ function saveThisPoster() {
 };
 
 function viewSavedPostersPage() {
+  savedPosterGrid.innerHTML = "";
   // click “Show Saved Posters” button
   // show saved posters section
   // All posters in savedPosters array is shown in the saved posters grid section
