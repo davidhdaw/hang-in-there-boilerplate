@@ -21,8 +21,6 @@ var imageForm = document.querySelector('#poster-image-url')
 var titleForm = document.querySelector('#poster-title')
 var quoteForm = document.querySelector('#poster-quote')
 
-var allMiniPosters = document.querySelectorAll(".mini-poster");
-
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -123,23 +121,24 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster = null;
+var allMiniPosters = null;
 
 // event listeners go here 👇
-window.addEventListener('load', injectRandomPoster);
-showRandomBtn.addEventListener('click', injectRandomPoster);
+window.addEventListener('load', addRandomPosterToHTML);
+showRandomBtn.addEventListener('click', addRandomPosterToHTML);
 savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-showMyPosterBtn.addEventListener('click', formReturn);
-neverMindBtn.addEventListener('click', goToMain);
-backToMainBtn.addEventListener('click', goToMain);
+showMyPosterBtn.addEventListener('click', formResults);
+neverMindBtn.addEventListener('click', showMain);
+backToMainBtn.addEventListener('click', showMain);
 
 // functions and event handlers go here 👇
 function getRandomElement(array) {
   return array[Math.floor(Math.random()*array.length)]
 };
 
-function injectPosterValues(poster) {
+function addPosterValuesToHTML(poster) {
   posterImg.src = poster.imageURL;
   posterTitle.innerText = poster.title;
   posterQuote.innerText = poster.quote;
@@ -152,9 +151,9 @@ function createRandomPoster() {
   currentPoster = new Poster(randImageURL, randTitle, randQuote);
 };
 
-function injectRandomPoster() {
+function addRandomPosterToHTML() {
   createRandomPoster();
-  injectPosterValues(currentPoster);
+  addPosterValuesToHTML(currentPoster);
 };
 
 function show(element) {
@@ -175,16 +174,16 @@ function showSavedPosters() {
   hide(posterForm)
   hide(mainPoster)
   show(savedPoster)
-  viewSavedPostersPage()
+  createMiniPosters()
 };
 
-function goToMain() {
+function showMain() {
   hide(posterForm)
   show(mainPoster)
   hide(savedPoster)
 };
 
-function createPosterFromForm () {
+function createPosterFromInputs () {
   var imgValue = imageForm.value;
   var titleValue = titleForm.value;
   var quoteValue = quoteForm.value;
@@ -197,12 +196,12 @@ function pushToArrays(poster) {
   quotes.push(this.quote);
 };
 
-function formReturn() {
+function formResults() {
   event.preventDefault();
-  createPosterFromForm();
+  createPosterFromInputs();
   pushToArrays(currentPoster);
-  injectPosterValues(currentPoster);
-  goToMain();
+  addPosterValuesToHTML(currentPoster);
+  showMain();
 };
 
 function saveThisPoster() {
@@ -211,7 +210,7 @@ function saveThisPoster() {
   }
 };
 
-function viewSavedPostersPage() {
+function createMiniPosters() {
   savedPosterGrid.innerHTML = "";
   for (var i = 0; i < savedPosters.length; i++) {
     savedPosterGrid.innerHTML +=
@@ -221,11 +220,11 @@ function viewSavedPostersPage() {
         <h4 class="poster-quote">${savedPosters[i].quote}</h4>
       </article>`
   }
-  addEventListenerForMiniPosters();
+  addMiniPosterEventListeners();
 };
 
-function addEventListenerForMiniPosters() {
-  var allMiniPosters = document.querySelectorAll(".mini-poster");
+function addMiniPosterEventListeners() {
+  allMiniPosters = document.querySelectorAll(".mini-poster");
   for (var i = 0; i < allMiniPosters.length; i++) {
     allMiniPosters[i].addEventListener("dblclick", clickToDelete)
   }
@@ -233,5 +232,5 @@ function addEventListenerForMiniPosters() {
 
 function clickToDelete() {
   savedPosters.splice([event.target.id], 1)
-  viewSavedPostersPage();
+  createMiniPosters();
 };
