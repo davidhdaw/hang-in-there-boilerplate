@@ -20,6 +20,7 @@ var savedPosterGrid = document.querySelector('.saved-posters-grid');
 var imageForm = document.querySelector('#poster-image-url')
 var titleForm = document.querySelector('#poster-title')
 var quoteForm = document.querySelector('#poster-quote')
+var divider = document.querySelector('.divider')
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -190,6 +191,7 @@ function createPosterFromInputs () {
   currentPoster = new Poster(imgValue, titleValue, quoteValue);
 };
 
+
 function pushToArrays(poster) {
   images.push(this.imageURL);
   titles.push(this.title);
@@ -198,11 +200,23 @@ function pushToArrays(poster) {
 
 function formResults() {
   event.preventDefault();
+  if (!imageForm.value || !titleForm.value || !quoteForm.value) {
+    divider.innerHTML = "<h1>Please complete all fields</h1>"
+  } else {
   createPosterFromInputs();
   pushToArrays(currentPoster);
   addPosterValuesToHTML(currentPoster);
   showMain();
+  clearFields();
+  divider.innerHTML = ""
+  }
 };
+
+function clearFields() {
+  imageForm.value = ""
+  titleForm.value = ""
+  quoteForm.value = ""
+}
 
 function saveThisPoster() {
   if (!savedPosters.includes(currentPoster)) {
