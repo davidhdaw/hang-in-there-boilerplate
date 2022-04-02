@@ -127,7 +127,6 @@ var currentPoster = null;
 // event listeners go here 👇
 window.addEventListener('load', injectRandomPoster);
 showRandomBtn.addEventListener('click', injectRandomPoster);
-
 savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
@@ -135,24 +134,16 @@ showMyPosterBtn.addEventListener('click', formReturn);
 neverMindBtn.addEventListener('click', goToMain);
 backToMainBtn.addEventListener('click', goToMain);
 
-// allMiniPosters.addEventListener('dblclick', deleteSavedPoster);
-
-
-
 // functions and event handlers go here 👇
-// function getRandomIndex(array) {
-//   return Math.floor(Math.random() * array.length);
-// }
-
 function getRandomElement(array) {
   return array[Math.floor(Math.random()*array.length)]
-}
+};
 
 function injectPosterValues(poster) {
   posterImg.src = poster.imageURL;
   posterTitle.innerText = poster.title;
   posterQuote.innerText = poster.quote;
-}
+};
 
 function createRandomPoster() {
   var randImageURL = getRandomElement(images);
@@ -198,21 +189,21 @@ function createPosterFromForm () {
   var titleValue = titleForm.value;
   var quoteValue = quoteForm.value;
   currentPoster = new Poster(imgValue, titleValue, quoteValue);
-  // currentPoster = new Poster(imageForm.value, titleForm.value, quoteForm.value);
+};
+
+function pushToArrays(poster) {
+  images.push(this.imageURL);
+  titles.push(this.title);
+  quotes.push(this.quote);
 };
 
 function formReturn() {
   event.preventDefault();
   createPosterFromForm();
-  images.push(currentPoster.imageURL);
-  titles.push(currentPoster.title);
-  quotes.push(currentPoster.quote);
+  pushToArrays(currentPoster);
   injectPosterValues(currentPoster);
   goToMain();
 };
-
-//we could make 3 push lines into it's own function if we wanted
-
 
 function saveThisPoster() {
   //click “Save This Poster” button
