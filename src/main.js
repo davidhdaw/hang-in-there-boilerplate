@@ -206,24 +206,13 @@ function formReturn() {
 };
 
 function saveThisPoster() {
-  //click “Save This Poster” button
-  //current main poster is added to savedPosters array
-  //no duplicates
-
-  //var savedPosters = []
-  //currentPoster = new Poster(randImageURL, randTitle, randQuote);
-
   if (!savedPosters.includes(currentPoster)) {
     savedPosters.push(currentPoster)
   }
-  console.log(savedPosters);
 };
 
 function viewSavedPostersPage() {
   savedPosterGrid.innerHTML = "";
-  // click “Show Saved Posters” button
-  // show saved posters section
-  // All posters in savedPosters array is shown in the saved posters grid section
   for (var i = 0; i < savedPosters.length; i++) {
     savedPosterGrid.innerHTML +=
     `<article class="mini-poster" id=${i}>
@@ -244,38 +233,5 @@ function addEventListenerForMiniPosters() {
 
 function clickToDelete() {
   savedPosters.splice([event.target.id], 1)
-  // savedPosters.splice(i, 1)
   viewSavedPostersPage();
 };
-
-// id=${id}
-// id=${savedPoster[i].id}
-
-// function clickToDelete() {
-//   event.target.classList.add("hidden")
-//   viewSavedPostersPage();
-// };
-
-//   event.target.id  -> index
-//   savedPosters[i].id --> 1970s ms
-//
-// function clickToDelete() {
-//
-//   viewSavedPostersPage();
-// };
-//
-
-//
-// function deleteSavedPoster() {
-//   event.target.id
-//   for (var i = 0; i < savedPosters.length; i++) {
-//     if (savedPosters[i].id === ) {
-//
-//     }
-//   }
-//   viewSavedPostersPage();
-//   // event listener on article .mini-poster
-// };
-
-//saved poster SavedPostersPage
-//dbl click and delete poster (from page and array)
