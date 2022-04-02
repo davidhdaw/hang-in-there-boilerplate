@@ -21,7 +21,6 @@ var imageForm = document.querySelector('#poster-image-url')
 var titleForm = document.querySelector('#poster-title')
 var quoteForm = document.querySelector('#poster-quote')
 
-
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -122,33 +121,28 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster = null;
+var allMiniPosters = null;
 
 // event listeners go here 👇
-window.addEventListener('load', injectRandomPoster);
-showRandomBtn.addEventListener('click', injectRandomPoster);
-
+window.addEventListener('load', addRandomPosterToHTML);
+showRandomBtn.addEventListener('click', addRandomPosterToHTML);
 savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-showMyPosterBtn.addEventListener('click', formReturn);
-neverMindBtn.addEventListener('click', goToMain);
-backToMainBtn.addEventListener('click', goToMain);
-
+showMyPosterBtn.addEventListener('click', formResults);
+neverMindBtn.addEventListener('click', showMain);
+backToMainBtn.addEventListener('click', showMain);
 
 // functions and event handlers go here 👇
-// function getRandomIndex(array) {
-//   return Math.floor(Math.random() * array.length);
-// }
-
 function getRandomElement(array) {
   return array[Math.floor(Math.random()*array.length)]
-}
+};
 
-function injectPosterValues(poster) {
+function addPosterValuesToHTML(poster) {
   posterImg.src = poster.imageURL;
   posterTitle.innerText = poster.title;
   posterQuote.innerText = poster.quote;
-}
+};
 
 function createRandomPoster() {
   var randImageURL = getRandomElement(images);
@@ -157,9 +151,9 @@ function createRandomPoster() {
   currentPoster = new Poster(randImageURL, randTitle, randQuote);
 };
 
-function injectRandomPoster() {
+function addRandomPosterToHTML() {
   createRandomPoster();
-  injectPosterValues(currentPoster);
+  addPosterValuesToHTML(currentPoster);
 };
 
 function show(element) {
@@ -180,58 +174,63 @@ function showSavedPosters() {
   hide(posterForm)
   hide(mainPoster)
   show(savedPoster)
-  viewSavedPostersPage()
+  createMiniPosters()
 };
 
-function goToMain() {
+function showMain() {
   hide(posterForm)
   show(mainPoster)
   hide(savedPoster)
 };
 
-function createPosterFromForm () {
+function createPosterFromInputs () {
   var imgValue = imageForm.value;
   var titleValue = titleForm.value;
   var quoteValue = quoteForm.value;
   currentPoster = new Poster(imgValue, titleValue, quoteValue);
 };
 
-function formReturn() {
-  event.preventDefault();
-  createPosterFromForm();
-  images.push(currentPoster.imageURL);
-  titles.push(currentPoster.title);
-  quotes.push(currentPoster.quote);
-  injectPosterValues(currentPoster);
-  goToMain();
+function pushToArrays(poster) {
+  images.push(this.imageURL);
+  titles.push(this.title);
+  quotes.push(this.quote);
 };
 
+function formResults() {
+  event.preventDefault();
+  createPosterFromInputs();
+  pushToArrays(currentPoster);
+  addPosterValuesToHTML(currentPoster);
+  showMain();
+};
 
 function saveThisPoster() {
-  //click “Save This Poster” button
-  //current main poster is added to savedPosters array
-  //no duplicates
-
-  //var savedPosters = []
-  //currentPoster = new Poster(randImageURL, randTitle, randQuote);
-
   if (!savedPosters.includes(currentPoster)) {
     savedPosters.push(currentPoster)
   }
-  console.log(savedPosters);
 };
 
-function viewSavedPostersPage() {
+function createMiniPosters() {
   savedPosterGrid.innerHTML = "";
-  // click “Show Saved Posters” button
-  // show saved posters section
-  // All posters in savedPosters array is shown in the saved posters grid section
   for (var i = 0; i < savedPosters.length; i++) {
     savedPosterGrid.innerHTML +=
-    `<article class="mini-poster">
+    `<article class="mini-poster" id=${i}>
         <img class="poster-img" src=${savedPosters[i].imageURL} alt="nothin' to see here">
         <h2 class="poster-title">${savedPosters[i].title}</h2>
         <h4 class="poster-quote">${savedPosters[i].quote}</h4>
       </article>`
   }
+  addMiniPosterEventListeners();
+};
+
+function addMiniPosterEventListeners() {
+  allMiniPosters = document.querySelectorAll(".mini-poster");
+  for (var i = 0; i < allMiniPosters.length; i++) {
+    allMiniPosters[i].addEventListener("dblclick", clickToDelete)
+  }
+};
+
+function clickToDelete() {
+  savedPosters.splice([event.target.id], 1)
+  createMiniPosters();
 };
