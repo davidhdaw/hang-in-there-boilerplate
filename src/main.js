@@ -21,6 +21,7 @@ var imageForm = document.querySelector('#poster-image-url')
 var titleForm = document.querySelector('#poster-title')
 var quoteForm = document.querySelector('#poster-quote')
 
+var allMiniPosters = document.querySelectorAll(".mini-poster");
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -134,6 +135,9 @@ showMyPosterBtn.addEventListener('click', formReturn);
 neverMindBtn.addEventListener('click', goToMain);
 backToMainBtn.addEventListener('click', goToMain);
 
+// allMiniPosters.addEventListener('dblclick', deleteSavedPoster);
+
+
 
 // functions and event handlers go here 👇
 // function getRandomIndex(array) {
@@ -194,6 +198,7 @@ function createPosterFromForm () {
   var titleValue = titleForm.value;
   var quoteValue = quoteForm.value;
   currentPoster = new Poster(imgValue, titleValue, quoteValue);
+  // currentPoster = new Poster(imageForm.value, titleForm.value, quoteForm.value);
 };
 
 function formReturn() {
@@ -205,6 +210,8 @@ function formReturn() {
   injectPosterValues(currentPoster);
   goToMain();
 };
+
+//we could make 3 push lines into it's own function if we wanted
 
 
 function saveThisPoster() {
@@ -228,10 +235,56 @@ function viewSavedPostersPage() {
   // All posters in savedPosters array is shown in the saved posters grid section
   for (var i = 0; i < savedPosters.length; i++) {
     savedPosterGrid.innerHTML +=
-    `<article class="mini-poster">
+    `<article class="mini-poster" id=${i}>
         <img class="poster-img" src=${savedPosters[i].imageURL} alt="nothin' to see here">
         <h2 class="poster-title">${savedPosters[i].title}</h2>
         <h4 class="poster-quote">${savedPosters[i].quote}</h4>
       </article>`
   }
+  addEventListenerForMiniPosters();
 };
+
+function addEventListenerForMiniPosters() {
+  var allMiniPosters = document.querySelectorAll(".mini-poster");
+  for (var i = 0; i < allMiniPosters.length; i++) {
+    allMiniPosters[i].addEventListener("dblclick", clickToDelete)
+  }
+};
+
+function clickToDelete() {
+  savedPosters.splice([event.target.id], 1)
+  // savedPosters.splice(i, 1)
+  viewSavedPostersPage();
+};
+
+// id=${id}
+// id=${savedPoster[i].id}
+
+// function clickToDelete() {
+//   event.target.classList.add("hidden")
+//   viewSavedPostersPage();
+// };
+
+//   event.target.id  -> index
+//   savedPosters[i].id --> 1970s ms
+//
+// function clickToDelete() {
+//
+//   viewSavedPostersPage();
+// };
+//
+
+//
+// function deleteSavedPoster() {
+//   event.target.id
+//   for (var i = 0; i < savedPosters.length; i++) {
+//     if (savedPosters[i].id === ) {
+//
+//     }
+//   }
+//   viewSavedPostersPage();
+//   // event listener on article .mini-poster
+// };
+
+//saved poster SavedPostersPage
+//dbl click and delete poster (from page and array)
