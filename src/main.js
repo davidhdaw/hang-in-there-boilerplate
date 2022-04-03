@@ -129,7 +129,7 @@ showRandomBtn.addEventListener('click', addRandomPosterToHTML);
 savePosterBtn.addEventListener('click', saveThisPoster);
 showSavedBtn.addEventListener('click', showSavedPosters);
 makeMyPosterBtn.addEventListener('click', showPosterForm);
-showMyPosterBtn.addEventListener('click', formResults);
+showMyPosterBtn.addEventListener('click', createFormResults);
 neverMindBtn.addEventListener('click', showMain);
 backToMainBtn.addEventListener('click', showMain);
 savedPosterGrid.addEventListener('dblclick', deleteThisPoster);
@@ -191,16 +191,13 @@ function createPosterFromInputs () {
   currentPoster = new Poster(imgValue, titleValue, quoteValue)
 };
 
-
 function pushToArrays(poster) {
   images.push(this.imageURL)
   titles.push(this.title)
   quotes.push(this.quote)
 };
 
-//How do we get alt text to show on "make your own poster?"
-//rename function to showFormResults!!!!
-function formResults() {
+function createFormResults() {
   event.preventDefault()
   if (!imageForm.value || !titleForm.value || !quoteForm.value) {
     divider.innerHTML = "<h1>Please complete all fields</h1>"
@@ -210,7 +207,7 @@ function formResults() {
     addPosterValuesToHTML(currentPoster)
     showMain()
     clearFields()
-    divider.innerHTML = "";
+    divider.innerHTML = ""
   }
 };
 
